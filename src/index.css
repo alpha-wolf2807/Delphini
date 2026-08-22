@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black text-slate-100 font-sans;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+  }
+}
+
+/* Glassmorphic Panel Styles */
+.glass-panel {
+  background: rgba(11, 15, 25, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 242, 254, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-glow {
+  background: rgba(11, 15, 25, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  box-shadow: 0 0 25px -5px rgba(0, 242, 254, 0.25);
+}
+
+.glass-button {
+  background: linear-gradient(135deg, rgba(14, 23, 42, 0.9) 0%, rgba(2, 6, 23, 0.95) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-button:hover {
+  border-color: rgba(0, 242, 254, 0.8);
+  box-shadow: 0 0 20px -3px rgba(0, 242, 254, 0.4);
+  transform: translateY(-1px);
+}
+
+.glass-button:active {
+  transform: translateY(1px);
+}
+
+/* Custom Scrollbar for Remote Console */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05070c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00f2fe;
+}
+
+/* Cyber text glow */
+.text-glow {
+  text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
+}
+
+.text-glow-lg {
+  text-shadow: 0 0 24px rgba(0, 242, 254, 0.8);
+}

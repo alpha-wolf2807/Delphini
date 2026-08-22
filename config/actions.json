@@ -1,0 +1,125 @@
+[
+  {
+    "id": "HI",
+    "name": "Hi / Greeting",
+    "category": "Character",
+    "spokenText": "Hey Aarav! Welcome to Delphini.",
+    "video": "/assets/videos/delphini_hi.mp4",
+    "holdImage": "/assets/images/delphini_hi_hold.png",
+    "audio": "/assets/audio/delphini/hi.wav",
+    "audioMode": "pre-generated",
+    "description": "Friendly holographic female avatar greets the audience and waves."
+  },
+  {
+    "id": "WAVE",
+    "name": "Wave",
+    "category": "Character",
+    "spokenText": "Hello everyone! Great to see you all.",
+    "video": "/assets/videos/delphini_wave.mp4",
+    "holdImage": "/assets/images/delphini_idle.png",
+    "audio": "/assets/audio/delphini/welcome.wav",
+    "audioMode": "pre-generated",
+    "description": "Delphini waves with particle accents."
+  },
+  {
+    "id": "HAPPY",
+    "name": "Happy Interaction",
+    "category": "Character",
+    "spokenText": "I am thrilled to present this holographic interface with you!",
+    "video": "/assets/videos/delphini_explain.mp4",
+    "holdImage": "/assets/images/delphini_idle.png",
+    "audio": "/assets/audio/delphini/happy.wav",
+    "audioMode": "pre-generated",
+    "description": "Joyful AI avatar interaction."
+  },
+  {
+    "id": "GOODBYE",
+    "name": "Goodbye",
+    "category": "Character",
+    "spokenText": "Thank you everyone for experiencing Delphini.",
+    "video": "/assets/videos/delphini_wave.mp4",
+    "holdImage": "/assets/images/delphini_idle.png",
+    "audio": "/assets/audio/delphini/goodbye.wav",
+    "audioMode": "pre-generated",
+    "description": "Delphini bids farewell to the audience."
+  },
+  {
+    "id": "SHOW_PEN",
+    "name": "Show Pen",
+    "category": "Objects",
+    "spokenText": "Here is the smart pen you asked for.",
+    "video": "/assets/videos/pen_show.mp4",
+    "holdImage": "/assets/images/pen_final.png",
+    "audio": "/assets/audio/delphini/show_pen.wav",
+    "audioMode": "pre-generated",
+    "description": "Futuristic 3D smart stylus materializes and floats in holographic space."
+  },
+  {
+    "id": "EXPAND_PEN",
+    "name": "Expand Pen",
+    "category": "Objects",
+    "spokenText": "Let me show you what's inside. Here are the internal modular components.",
+    "video": "/assets/videos/pen_expand.mp4",
+    "holdImage": "/assets/images/pen_components.png",
+    "audio": "/assets/audio/delphini/expand_pen.wav",
+    "audioMode": "pre-generated",
+    "description": "Pen disassembles in 3D into exploded components (sensor tip, titanium body, magnetic dock, power core)."
+  },
+  {
+    "id": "ASSEMBLE_PEN",
+    "name": "Assemble Pen",
+    "category": "Objects",
+    "spokenText": "Reassembling the components back into the chassis.",
+    "video": "/assets/videos/pen_assemble.mp4",
+    "holdImage": "/assets/images/pen_final.png",
+    "audio": "/assets/audio/delphini/assemble_pen.wav",
+    "audioMode": "pre-generated",
+    "description": "Exploded pen parts smoothly lock back together into unified chassis."
+  },
+  {
+    "id": "WELCOME",
+    "name": "Welcome Intro",
+    "category": "Special",
+    "spokenText": "Welcome to Delphini, the next generation of interactive holographic presentation systems.",
+    "video": "/assets/videos/delphini_explain.mp4",
+    "holdImage": "/assets/images/delphini_explain_hold.png",
+    "audio": "/assets/audio/delphini/welcome.wav",
+    "audioMode": "pre-generated",
+    "description": "Delphini introduces the system."
+  },
+  {
+    "id": "MAGIC_MOMENT",
+    "name": "Magic Moment",
+    "category": "Special",
+    "spokenText": "Observe the power of optical Pepper's Ghost holographic projection.",
+    "video": "/assets/videos/delphini_magic.mp4",
+    "holdImage": "/assets/images/delphini_magic_hold.png",
+    "audio": "/assets/audio/delphini/magic.wav",
+    "audioMode": "pre-generated",
+    "description": "Burst of glowing cyan particles swirling around the holographic core."
+  },
+  {
+    "id": "TEST_DYNAMIC_PEN",
+    "name": "Dynamic Smart Stylus Demo",
+    "category": "Objects",
+    "spokenText": "This action was created dynamically through the Action Creator.",
+    "video": "/assets/videos/pen_show.mp4",
+    "holdImage": "/assets/images/pen_final.png",
+    "audio": "/assets/audio/generated/delphini_92ddb2f5848ef5ac44168fb852c22306.wav",
+    "audioMode": "delphini-engine",
+    "description": "",
+    "createdAt": 1787376938295
+  },
+  {
+    "id": "I_M_TESTING_IT",
+    "name": "I'm Testing it",
+    "category": "Special",
+    "spokenText": "Hey aarav you tested sucessfully",
+    "video": "/assets/videos/pen_show.mp4",
+    "holdImage": "/assets/images/delphini_explain_hold.png",
+    "audio": "",
+    "audioMode": "delphini-engine",
+    "description": "Custom action: I'm Testing it",
+    "createdAt": 1787387772079
+  }
+]

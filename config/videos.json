@@ -1,0 +1,51 @@
+[
+  {
+    "id": "delphini_hi",
+    "name": "Delphini Greeting & Wave",
+    "file": "/assets/videos/delphini_hi.mp4",
+    "category": "Character",
+    "duration": 3.8
+  },
+  {
+    "id": "delphini_wave",
+    "name": "Delphini Floating Wave",
+    "file": "/assets/videos/delphini_wave.mp4",
+    "category": "Character",
+    "duration": 3.5
+  },
+  {
+    "id": "delphini_explain",
+    "name": "Delphini Speaking / Explaining",
+    "file": "/assets/videos/delphini_explain.mp4",
+    "category": "Character",
+    "duration": 5.0
+  },
+  {
+    "id": "pen_show",
+    "name": "Smart Stylus Materialize",
+    "file": "/assets/videos/pen_show.mp4",
+    "category": "Objects",
+    "duration": 4.0
+  },
+  {
+    "id": "pen_expand",
+    "name": "Pen Disassemble (Exploded View)",
+    "file": "/assets/videos/pen_expand.mp4",
+    "category": "Objects",
+    "duration": 4.2
+  },
+  {
+    "id": "pen_assemble",
+    "name": "Pen Reassemble",
+    "file": "/assets/videos/pen_assemble.mp4",
+    "category": "Objects",
+    "duration": 3.6
+  },
+  {
+    "id": "delphini_magic",
+    "name": "Holographic Energy Vortex",
+    "file": "/assets/videos/delphini_magic.mp4",
+    "category": "Special",
+    "duration": 4.5
+  }
+]

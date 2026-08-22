@@ -1,0 +1,38 @@
+[
+  {
+    "id": "delphini_idle",
+    "name": "Delphini Idle Presence",
+    "file": "/assets/images/delphini_idle.png",
+    "category": "Character"
+  },
+  {
+    "id": "delphini_hi_hold",
+    "name": "Delphini Gentle Pose Hold",
+    "file": "/assets/images/delphini_hi_hold.png",
+    "category": "Character"
+  },
+  {
+    "id": "delphini_explain_hold",
+    "name": "Delphini Attentive Hold",
+    "file": "/assets/images/delphini_explain_hold.png",
+    "category": "Character"
+  },
+  {
+    "id": "pen_final",
+    "name": "Smart Stylus Floating Hold",
+    "file": "/assets/images/pen_final.png",
+    "category": "Objects"
+  },
+  {
+    "id": "pen_components",
+    "name": "Exploded Components Hold",
+    "file": "/assets/images/pen_components.png",
+    "category": "Objects"
+  },
+  {
+    "id": "delphini_magic_hold",
+    "name": "Hologram Core Hold",
+    "file": "/assets/images/delphini_magic_hold.png",
+    "category": "Special"
+  }
+]
