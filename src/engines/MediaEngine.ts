@@ -85,28 +85,30 @@ export class MediaEngine {
     });
   }
 
-  playVideo(videoUrl: string, holdImageUrl: string) {
+  playVideo(videoUrl: string, holdImageUrl: string = '/assets/images/Fallback image.png') {
     this.currentVideoUrl = videoUrl;
-    this.currentHoldImageUrl = holdImageUrl;
+    this.currentHoldImageUrl = holdImageUrl || '/assets/images/Fallback image.png';
     this.isBlackScreen = false;
     this.notify('PLAYING_VIDEO');
-    console.log(`[MediaEngine] Playing Video: ${videoUrl} -> Will Hold: ${holdImageUrl}`);
+    console.log(`[MediaEngine] Playing Video: ${videoUrl} -> Will Hold: ${this.currentHoldImageUrl}`);
   }
 
   handleVideoEnded() {
-    console.log(`[MediaEngine] Video ended -> Transitioning to Hold Image: ${this.currentHoldImageUrl}`);
+    const fallbackImage = this.currentHoldImageUrl || '/assets/images/Fallback image.png';
+    console.log(`[MediaEngine] Video ended -> Transitioning to Persistent Hold Image: ${fallbackImage}`);
+    this.currentHoldImageUrl = fallbackImage;
     this.notify('HOLD_IMAGE');
     for (const l of this.listeners) {
       l.onVideoEnd?.();
     }
   }
 
-  holdImage(imageUrl: string) {
+  holdImage(imageUrl: string = '/assets/images/Fallback image.png') {
     this.currentVideoUrl = null;
-    this.currentHoldImageUrl = imageUrl;
+    this.currentHoldImageUrl = imageUrl || '/assets/images/Fallback image.png';
     this.isBlackScreen = false;
     this.notify('HOLD_IMAGE');
-    console.log(`[MediaEngine] Showing Hold Image: ${imageUrl}`);
+    console.log(`[MediaEngine] Showing Hold Image: ${this.currentHoldImageUrl}`);
   }
 
   setBlackScreen(enabled: boolean) {
@@ -114,20 +116,17 @@ export class MediaEngine {
     if (enabled) {
       this.notify('BLACK_OUT');
     } else {
-      if (this.currentHoldImageUrl) {
-        this.notify('HOLD_IMAGE');
-      } else {
-        this.notify('IDLE');
-      }
+      this.currentHoldImageUrl = this.currentHoldImageUrl || '/assets/images/Fallback image.png';
+      this.notify('HOLD_IMAGE');
     }
     console.log(`[MediaEngine] Black Screen: ${enabled}`);
   }
 
-  reset(defaultHoldImage: string = '/assets/images/delphini_idle.png') {
+  reset(defaultHoldImage: string = '/assets/images/Fallback image.png') {
     this.currentVideoUrl = null;
     this.currentHoldImageUrl = defaultHoldImage;
     this.isBlackScreen = false;
     this.notify('HOLD_IMAGE');
-    console.log('[MediaEngine] Reset to idle hold state');
+    console.log('[MediaEngine] Reset to idle fallback state');
   }
 }

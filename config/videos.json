@@ -1,51 +1,158 @@
 [
   {
-    "id": "delphini_hi",
-    "name": "Delphini Greeting & Wave",
-    "file": "/assets/videos/delphini_hi.mp4",
-    "category": "Character",
-    "duration": 3.8
+    "id": "N--DELPHINI_ABT_WHY_WE_BUILT_IT",
+    "name": "Why We Built Delphini",
+    "file": "/assets/videos/N--DELPHINI ABT WHY WE BUILT IT.mp4",
+    "category": "Story"
   },
   {
-    "id": "delphini_wave",
-    "name": "Delphini Floating Wave",
-    "file": "/assets/videos/delphini_wave.mp4",
-    "category": "Character",
-    "duration": 3.5
+    "id": "N--DELPHINI_ANYTHING_ELSE",
+    "name": "Anything Else Question",
+    "file": "/assets/videos/N--DELPHINI ANYTHING ELSE.mp4",
+    "category": "Conversations"
+  },
+  {
+    "id": "N--DELPHINI_CURIOS",
+    "name": "Curious Delphini",
+    "file": "/assets/videos/N--DELPHINI CURIOS.mp4",
+    "category": "Reactions"
+  },
+  {
+    "id": "N--DELPHINI_DRACULA_JOKE",
+    "name": "Dracula Joke",
+    "file": "/assets/videos/N--DELPHINI DRACULA JOKE.mp4",
+    "category": "Humor"
+  },
+  {
+    "id": "N--DELPHINI_EMOTIONAL_JUDGE_MOMENT",
+    "name": "Emotional Judge Moment",
+    "file": "/assets/videos/N--DELPHINI EMOTIONAL JUDGE MOMENT.mp4",
+    "category": "Reactions"
+  },
+  {
+    "id": "N--DELPHINI_EXIT",
+    "name": "Delphini Exit",
+    "file": "/assets/videos/N--DELPHINI EXIT.mp4",
+    "category": "Conversations"
+  },
+  {
+    "id": "N--DELPHINI_EYE_ROLL",
+    "name": "Playful Eye Roll",
+    "file": "/assets/videos/N--DELPHINI EYE ROLL.mp4",
+    "category": "Reactions"
+  },
+  {
+    "id": "N--DELPHINI_FRIENDLY_WAVE",
+    "name": "Friendly Wave",
+    "file": "/assets/videos/N--DELPHINI FRIENDLY WAVE.mp4",
+    "category": "Greetings"
+  },
+  {
+    "id": "N--DELPHINI_HEART_JOKE",
+    "name": "Heart Joke",
+    "file": "/assets/videos/N--DELPHINI HEART JOKE.mp4",
+    "category": "Humor"
+  },
+  {
+    "id": "N--DELPHINI_IM_RIGHT_HERE",
+    "name": "I'm Right Here!",
+    "file": "/assets/videos/N--DELPHINI IM RIGHT HERE.mp4",
+    "category": "Conversations"
+  },
+  {
+    "id": "N--DELPHINI_INTRODUCTION",
+    "name": "Delphini Introduction",
+    "file": "/assets/videos/N--DELPHINI INTRODUCTION.mp4",
+    "category": "Greetings"
+  },
+  {
+    "id": "N--DELPHINI_LAUGH_REACTION",
+    "name": "Laugh Reaction",
+    "file": "/assets/videos/N--DELPHINI LAUGH REACTION.mp4",
+    "category": "Reactions"
+  },
+  {
+    "id": "N--DELPHINI_NUERON_TEACH",
+    "name": "Neuron & Brain Science",
+    "file": "/assets/videos/N--DELPHINI NUERON TEACH.mp4",
+    "category": "Science"
+  },
+  {
+    "id": "N--DELPHINI_PLAYFULLY_ANNOYED",
+    "name": "Playfully Annoyed",
+    "file": "/assets/videos/N--DELPHINI PLAYFULLY ANNOYED.mp4",
+    "category": "Reactions"
+  },
+  {
+    "id": "N--DELPHINI_PROUD",
+    "name": "Proud Delphini",
+    "file": "/assets/videos/N--DELPHINI PROUD.mp4",
+    "category": "Reactions"
+  },
+  {
+    "id": "N--DELPHINI_SAYS_KIDDING",
+    "name": "Just Kidding!",
+    "file": "/assets/videos/N--DELPHINI SAYS KIDDING.mp4",
+    "category": "Humor"
+  },
+  {
+    "id": "N--DELPHINI_SCIENCE_MODE",
+    "name": "Delphini Science Mode",
+    "file": "/assets/videos/N--DELPHINI SCIENCE MODE.mp4",
+    "category": "Science"
+  },
+  {
+    "id": "N--DELPHINI_SHOCKED",
+    "name": "Shocked Expression",
+    "file": "/assets/videos/N--DELPHINI SHOCKED.mp4",
+    "category": "Reactions"
+  },
+  {
+    "id": "N--DELPHINI_SURFING_WEB",
+    "name": "Surfing the Web",
+    "file": "/assets/videos/N--DELPHINI SURFING WEB.mp4",
+    "category": "Actions"
+  },
+  {
+    "id": "N--DELPHINI_TEASING_AARAV",
+    "name": "Teasing Aarav",
+    "file": "/assets/videos/N--DELPHINI TEASING AARAV.mp4",
+    "category": "Humor"
+  },
+  {
+    "id": "N--DELPHINI_WALK_AROUND",
+    "name": "Delphini Walk Around",
+    "file": "/assets/videos/N--DELPHINI WALK AROUND.mp4",
+    "category": "Actions"
+  },
+  {
+    "id": "N--HEART",
+    "name": "Holographic Floating Heart",
+    "file": "/assets/videos/N--HEART.mp4",
+    "category": "Visuals"
+  },
+  {
+    "id": "N--PEN_DISASSEMBLE",
+    "name": "Stylus Component Explosion",
+    "file": "/assets/videos/N--PEN DISASSEMBLE.mp4",
+    "category": "Objects"
+  },
+  {
+    "id": "N--PEN_RESASSEMBLE",
+    "name": "Stylus Reassembly",
+    "file": "/assets/videos/N--PEN RESASSEMBLE.mp4",
+    "category": "Objects"
+  },
+  {
+    "id": "N--PEN_SHOW",
+    "name": "Smart Stylus Reveal",
+    "file": "/assets/videos/N--PEN SHOW.mp4",
+    "category": "Objects"
   },
   {
     "id": "delphini_explain",
-    "name": "Delphini Speaking / Explaining",
+    "name": "Delphini Talking & Explaining",
     "file": "/assets/videos/delphini_explain.mp4",
-    "category": "Character",
-    "duration": 5.0
-  },
-  {
-    "id": "pen_show",
-    "name": "Smart Stylus Materialize",
-    "file": "/assets/videos/pen_show.mp4",
-    "category": "Objects",
-    "duration": 4.0
-  },
-  {
-    "id": "pen_expand",
-    "name": "Pen Disassemble (Exploded View)",
-    "file": "/assets/videos/pen_expand.mp4",
-    "category": "Objects",
-    "duration": 4.2
-  },
-  {
-    "id": "pen_assemble",
-    "name": "Pen Reassemble",
-    "file": "/assets/videos/pen_assemble.mp4",
-    "category": "Objects",
-    "duration": 3.6
-  },
-  {
-    "id": "delphini_magic",
-    "name": "Holographic Energy Vortex",
-    "file": "/assets/videos/delphini_magic.mp4",
-    "category": "Special",
-    "duration": 4.5
+    "category": "Conversations"
   }
 ]

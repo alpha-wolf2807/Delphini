@@ -194,18 +194,23 @@ wss.on('connection', (ws: WebSocket, req) => {
           const text = message.text?.trim();
           if (!text) return;
 
-          console.log(`[WS] Live Response received in room ${currentRoomId}: "${text}"`);
+          const videoUrl = message.videoUrl || null;
+          const holdImageUrl = message.holdImageUrl || '/assets/images/Fallback image.png';
+
+          console.log(`[WS] Live Response received in room ${currentRoomId}: "${text}" (Video: ${videoUrl || 'default'})`);
 
           try {
             // Synthesize speech with Delphini Unified Voice
             const ttsResult = await voiceService.synthesize(text);
 
-            // Send to projection with synthesized Delphini audio URL and duration
+            // Send to projection with synthesized Delphini audio URL, custom videoUrl and duration
             roomManager.sendToProjection(currentRoomId, {
               type: 'EXECUTE_LIVE_RESPONSE',
               text,
               audioUrl: ttsResult.audioUrl,
               durationEstimate: ttsResult.durationEstimate,
+              videoUrl,
+              holdImageUrl,
               timestamp: Date.now()
             });
 
@@ -213,6 +218,7 @@ wss.on('connection', (ws: WebSocket, req) => {
               type: 'LIVE_RESPONSE_SENT',
               text,
               audioUrl: ttsResult.audioUrl,
+              videoUrl,
               timestamp: Date.now()
             }));
           } catch (ttsErr: any) {
@@ -223,6 +229,8 @@ wss.on('connection', (ws: WebSocket, req) => {
               text,
               audioUrl: null,
               durationEstimate: 3.5,
+              videoUrl,
+              holdImageUrl,
               timestamp: Date.now()
             });
           }

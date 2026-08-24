@@ -184,10 +184,12 @@ export const RemotePortal: React.FC = () => {
     });
   };
 
-  const handleSendLiveResponse = (text: string) => {
+  const handleSendLiveResponse = (text: string, videoUrl?: string, holdImageUrl?: string) => {
     wsClientRef.current?.send({
       type: 'LIVE_RESPONSE',
       text,
+      videoUrl,
+      holdImageUrl,
       timestamp: Date.now()
     });
     setLastTriggeredId('LIVE_RESPONSE');
@@ -641,6 +643,8 @@ export const RemotePortal: React.FC = () => {
       {/* Live Response Modal */}
       <LiveResponseModal
         isOpen={isLiveResponseOpen}
+        actions={actions}
+        favorites={favorites}
         onClose={() => setIsLiveResponseOpen(false)}
         onSendLiveResponse={handleSendLiveResponse}
       />

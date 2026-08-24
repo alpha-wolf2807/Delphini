@@ -13,6 +13,7 @@ interface HologramViewportProps {
   videoUrl: string | null;
   holdImageUrl: string | null;
   isBlackScreen: boolean;
+  isMuted?: boolean;
   onVideoEnd?: () => void;
 }
 
@@ -27,6 +28,7 @@ export const HologramViewport: React.FC<HologramViewportProps> = ({
   videoUrl,
   holdImageUrl,
   isBlackScreen,
+  isMuted = false,
   onVideoEnd
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -70,7 +72,7 @@ export const HologramViewport: React.FC<HologramViewportProps> = ({
           ref={videoRef}
           src={videoUrl}
           playsInline
-          muted
+          muted={isMuted}
           autoPlay
           onEnded={onVideoEnd}
           className="w-full h-full object-contain bg-black"
@@ -84,7 +86,7 @@ export const HologramViewport: React.FC<HologramViewportProps> = ({
       {/* Hold Image View (Active when video completed or idle) */}
       {(state === 'HOLD_IMAGE' || state === 'IDLE' || (state !== 'PLAYING_VIDEO' && holdImageUrl)) && (
         <img
-          src={holdImageUrl || '/assets/images/delphini_idle.png'}
+          src={holdImageUrl || '/assets/images/Fallback image.png'}
           alt="Hologram Hold"
           className="w-full h-full object-contain bg-black select-none"
           style={{
@@ -93,7 +95,7 @@ export const HologramViewport: React.FC<HologramViewportProps> = ({
           }}
           onError={(e) => {
             // Fallback placeholder image if not found
-            (e.target as HTMLImageElement).src = '/assets/images/delphini_idle.png';
+            (e.target as HTMLImageElement).src = '/assets/images/Fallback image.png';
           }}
         />
       )}

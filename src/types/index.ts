@@ -72,6 +72,8 @@ export interface WebSocketMessage {
   text?: string;
   audioUrl?: string;
   durationEstimate?: number;
+  videoUrl?: string;
+  holdImageUrl?: string;
   enabled?: boolean;
   calibration?: Partial<CalibrationSettings>;
   state?: HologramMediaState;

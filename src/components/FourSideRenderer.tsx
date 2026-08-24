@@ -91,6 +91,7 @@ export const FourSideRenderer: React.FC<FourSideRendererProps> = ({
             videoUrl={videoUrl}
             holdImageUrl={holdImageUrl}
             isBlackScreen={isBlackScreen}
+            isMuted={idx !== 0}
             onVideoEnd={idx === 0 ? onVideoEnd : undefined} // Only trigger onEnded once from master viewport
           />
         ))}

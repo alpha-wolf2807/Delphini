@@ -68,34 +68,33 @@ export class ActionEngine {
     console.log(`[ActionEngine] Executing Action: ${action.id} ("${action.name}")`);
     this.currentActionId = action.id;
 
-    // 1. Stop any currently playing audio & video
+    // 1. Stop any currently active TTS / speech audio
     this.voiceEngine.stop();
 
-    // 2. Start Video on MediaEngine (which transitions to holdImage when done)
+    // 2. Start Video on MediaEngine (video's built-in native audio plays through master viewport)
     this.mediaEngine.playVideo(action.video, action.holdImage);
-
-    // 3. Play Delphini Voice Audio in sync
-    if (action.audio) {
-      this.voiceEngine.playPreGeneratedAudio(action.audio);
-    } else if (action.spokenText && action.audioMode !== 'silent') {
-      this.voiceEngine.speak(action.spokenText);
-    }
 
     this.emitStatus();
     return true;
   }
 
-  async executeLiveResponse(text: string, directAudioUrl?: string | null, durationEstimate: number = 4.0) {
-    console.log(`[ActionEngine] Executing Live Response: "${text}"`);
+  async executeLiveResponse(
+    text: string,
+    directAudioUrl?: string | null,
+    durationEstimate: number = 4.0,
+    videoUrl?: string | null,
+    holdImageUrl?: string | null
+  ) {
+    console.log(`[ActionEngine] Executing Live Response: "${text}" (Video: ${videoUrl || 'default'})`);
     this.currentActionId = 'LIVE_RESPONSE';
 
     // 1. Stop previous audio
     this.voiceEngine.stop();
 
-    // 2. Play Delphini talking/explaining video and set hold image
-    const explainVideo = '/assets/videos/delphini_explain.mp4';
-    const explainHold = '/assets/images/delphini_explain_hold.png';
-    this.mediaEngine.playVideo(explainVideo, explainHold);
+    // 2. Play selected video (or default explain video) and set hold image
+    const targetVideo = videoUrl || '/assets/videos/delphini_explain.mp4';
+    const targetHold = holdImageUrl || '/assets/images/Fallback image.png';
+    this.mediaEngine.playVideo(targetVideo, targetHold);
 
     // 3. Speak using the unified Delphini female voice
     await this.voiceEngine.speak(text, directAudioUrl || undefined);
@@ -106,7 +105,7 @@ export class ActionEngine {
   reset() {
     this.currentActionId = null;
     this.voiceEngine.stop();
-    this.mediaEngine.reset('/assets/images/delphini_idle.png');
+    this.mediaEngine.reset('/assets/images/Fallback image.png');
     this.emitStatus();
   }
 

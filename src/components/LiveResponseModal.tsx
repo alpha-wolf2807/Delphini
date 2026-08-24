@@ -1,11 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { X, Send, Sparkles, Zap, MessageSquare, Mic, MicOff, Volume2 } from 'lucide-react';
+import { ActionItem } from '../types';
+import { X, Send, Sparkles, Zap, MessageSquare, Mic, MicOff, Volume2, Video, Star } from 'lucide-react';
 import { soundFX } from '../utils/soundEffects';
 
 interface LiveResponseModalProps {
   isOpen: boolean;
+  actions?: ActionItem[];
+  favorites?: string[];
   onClose: () => void;
-  onSendLiveResponse: (text: string) => void;
+  onSendLiveResponse: (text: string, videoUrl?: string, holdImageUrl?: string) => void;
 }
 
 const PRESET_ANSWERS = [
@@ -17,10 +20,14 @@ const PRESET_ANSWERS = [
 
 export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
   isOpen,
+  actions = [],
+  favorites = [],
   onClose,
   onSendLiveResponse
 }) => {
   const [text, setText] = useState('');
+  const [selectedActionId, setSelectedActionId] = useState<string>('DELPHINI_EXPLAIN');
+  const [filterMode, setFilterMode] = useState<'ALL' | 'FAVORITES'>('ALL');
   const [isSending, setIsSending] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
@@ -76,11 +83,16 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
     }
   };
 
+  const selectedAction = actions.find(a => a.id === selectedActionId) || actions[0];
+
   const handleSend = () => {
     if (!text.trim()) return;
     soundFX.playTransmit();
     setIsSending(true);
-    onSendLiveResponse(text.trim());
+    const videoUrl = selectedAction?.video || '/assets/videos/delphini_explain.mp4';
+    const holdImageUrl = selectedAction?.holdImage || '/assets/images/Fallback image.png';
+    
+    onSendLiveResponse(text.trim(), videoUrl, holdImageUrl);
     setTimeout(() => {
       setIsSending(false);
       setText('');
@@ -93,11 +105,16 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
     setText(preset);
   };
 
+  // Available actions for video selection
+  const displayedActions = filterMode === 'FAVORITES'
+    ? actions.filter(a => favorites.includes(a.id))
+    : actions;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-xl glass-panel-glow rounded-2xl p-6 border border-cyan-400/40 bg-slate-950 text-slate-100 shadow-2xl">
+      <div className="relative w-full max-w-xl glass-panel-glow rounded-2xl p-6 border border-cyan-400/40 bg-slate-950 text-slate-100 shadow-2xl max-h-[90vh] flex flex-col overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-delphini-border">
+        <div className="flex items-center justify-between pb-4 border-b border-delphini-border shrink-0">
           <div className="flex items-center gap-2">
             <Zap className="w-5 h-5 text-delphini-cyan animate-pulse" />
             <h2 className="text-xl font-bold text-slate-100 tracking-wide font-sans">
@@ -116,23 +133,76 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="mt-4 space-y-4">
+        <div className="mt-4 space-y-4 flex-1">
           <p className="text-xs text-slate-400">
-            Speak into your microphone or type unscripted text for Delphini to say live. Delphini will trigger its explanation hologram and speak with the <strong className="text-delphini-cyan">unified female voice</strong>.
+            Select any video (or pick from Favorites) and dictate or type unscripted text for Delphini to say live.
           </p>
+
+          {/* Video Selection Section */}
+          <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-semibold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5 font-mono">
+                <Video className="w-3.5 h-3.5 text-cyan-400" />
+                Select Avatar Video / Reaction:
+              </label>
+
+              {/* Favorites vs All filter pills */}
+              <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 text-[10px] font-mono">
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundFX.playClick();
+                    setFilterMode('ALL');
+                  }}
+                  className={`px-2 py-0.5 rounded transition-colors ${
+                    filterMode === 'ALL' ? 'bg-cyan-400 text-black font-bold' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  All ({actions.length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundFX.playClick();
+                    setFilterMode('FAVORITES');
+                  }}
+                  className={`px-2 py-0.5 rounded flex items-center gap-1 transition-colors ${
+                    filterMode === 'FAVORITES' ? 'bg-amber-400 text-black font-bold' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <Star className="w-2.5 h-2.5 fill-current" /> Favorites ({favorites.length})
+                </button>
+              </div>
+            </div>
+
+            <select
+              value={selectedActionId}
+              onChange={(e) => {
+                soundFX.playClick();
+                setSelectedActionId(e.target.value);
+              }}
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-400"
+            >
+              {displayedActions.map((act) => (
+                <option key={act.id} value={act.id}>
+                  {act.name} ({act.category || 'General'}) — {act.video.split('/').pop()}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {/* Preset Quick-Replies */}
           <div>
             <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5 text-delphini-cyan" /> Quick Preset Responses (Click to insert):
             </label>
-            <div className="space-y-1.5 max-h-32 overflow-y-auto pr-1">
+            <div className="space-y-1.5 max-h-28 overflow-y-auto pr-1">
               {PRESET_ANSWERS.map((preset, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => handleSelectPreset(preset)}
-                  className="w-full text-left p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-delphini-cyan/50 text-xs text-slate-300 transition-colors line-clamp-2"
+                  className="w-full text-left p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-delphini-cyan/50 text-xs text-slate-300 transition-colors line-clamp-2"
                 >
                   "{preset}"
                 </button>
@@ -173,7 +243,7 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
             </div>
 
             <textarea
-              rows={4}
+              rows={3}
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="e.g. Delphini is a modular holographic interface capable of explaining complex components..."
@@ -185,7 +255,7 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
           </div>
 
           {/* Footer Controls */}
-          <div className="pt-3 flex items-center justify-between border-t border-delphini-border">
+          <div className="pt-3 flex items-center justify-between border-t border-delphini-border shrink-0">
             <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
               <Volume2 className="w-3.5 h-3.5 text-cyan-400" /> Neural Voice: <strong className="text-cyan-300">delphini-female</strong>
             </span>

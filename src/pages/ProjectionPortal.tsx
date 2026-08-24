@@ -43,7 +43,7 @@ export const ProjectionPortal: React.FC = () => {
   const [actions, setActions] = useState<ActionItem[]>([]);
   const [hologramStatus, setHologramStatus] = useState<HologramStatus>({
     state: 'IDLE',
-    holdImageUrl: '/assets/images/delphini_idle.png',
+    holdImageUrl: '/assets/images/Fallback image.png',
     isBlackScreen: false,
     timestamp: Date.now()
   });
@@ -160,7 +160,9 @@ export const ProjectionPortal: React.FC = () => {
           actionEngineRef.current.executeLiveResponse(
             msg.text,
             msg.audioUrl,
-            msg.durationEstimate || 4.0
+            msg.durationEstimate || 4.0,
+            msg.videoUrl,
+            msg.holdImageUrl
           );
         }
         break;
