@@ -26,7 +26,8 @@ import {
   Sliders,
   Play,
   Activity,
-  Maximize2
+  Maximize2,
+  Trash2
 } from 'lucide-react';
 
 export const RemotePortal: React.FC = () => {
@@ -63,11 +64,12 @@ export const RemotePortal: React.FC = () => {
     quadrantDistance: 280
   });
 
-  // Modals
+  // Modals & Confirmation States
   const [isActionCreatorOpen, setIsActionCreatorOpen] = useState(false);
   const [isLiveResponseOpen, setIsLiveResponseOpen] = useState(false);
   const [isPrismControlOpen, setIsPrismControlOpen] = useState(false);
   const [isMacroModalOpen, setIsMacroModalOpen] = useState(false);
+  const [actionToDelete, setActionToDelete] = useState<ActionItem | null>(null);
 
   const wsClientRef = useRef<DelphiniWSClient | null>(null);
 
@@ -198,6 +200,23 @@ export const RemotePortal: React.FC = () => {
     setFavorites(prev => 
       prev.includes(actionId) ? prev.filter(id => id !== actionId) : [...prev, actionId]
     );
+  };
+
+  const confirmDeleteAction = async () => {
+    if (!actionToDelete) return;
+    soundFX.playEmergency();
+    try {
+      const res = await fetch(`/api/actions/${encodeURIComponent(actionToDelete.id)}?roomId=${encodeURIComponent(roomId)}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.actions) setActions(data.actions);
+      }
+    } catch (e) {
+      console.error('Failed to remove action:', e);
+    }
+    setActionToDelete(null);
   };
 
   const handleUpdateCalibration = (updated: Partial<CalibrationSettings>) => {
@@ -525,6 +544,17 @@ export const RemotePortal: React.FC = () => {
                     >
                       <Star className={`w-3.5 h-3.5 ${isFav ? 'fill-amber-400 text-amber-400' : ''}`} />
                     </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        soundFX.playClick();
+                        setActionToDelete(action);
+                      }}
+                      className="p-1 text-slate-500 hover:text-rose-400 transition-colors"
+                      title="Remove Action"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
 
@@ -631,6 +661,45 @@ export const RemotePortal: React.FC = () => {
         onClose={() => setIsMacroModalOpen(false)}
         onRunMacro={runMacroSequence}
       />
+
+      {/* Action Deletion Confirmation Modal */}
+      {actionToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
+          <div className="relative w-full max-w-md glass-panel rounded-2xl p-6 border border-rose-500/40 bg-slate-950 text-slate-100 shadow-2xl">
+            <div className="flex items-center gap-3 text-rose-400 mb-3">
+              <div className="p-2.5 rounded-xl bg-rose-950 border border-rose-800 text-rose-400">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-bold font-mono tracking-wide text-white uppercase">
+                Remove Action
+              </h3>
+            </div>
+
+            <p className="text-xs text-slate-300 font-sans leading-relaxed">
+              Are you sure you want to remove action <strong className="text-cyan-300 font-mono">{actionToDelete.name}</strong> (<code className="text-slate-400">{actionToDelete.id}</code>) from the holographic remote deck?
+            </p>
+
+            <div className="mt-6 flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+              <button
+                onClick={() => {
+                  soundFX.playClick();
+                  setActionToDelete(null);
+                }}
+                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 text-xs font-mono transition-colors"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={confirmDeleteAction}
+                className="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs font-mono uppercase tracking-wider shadow-glow-sm flex items-center gap-1.5 transition-all hover:scale-105"
+              >
+                <Trash2 className="w-3.5 h-3.5" /> Remove Action
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

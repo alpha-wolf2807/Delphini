@@ -78,6 +78,25 @@ app.post('/api/actions', async (req, res) => {
   }
 });
 
+app.delete('/api/actions/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedActions = actionRegistry.deleteAction(id);
+    const roomId = (req.query.roomId as string) || 'DEL-4821';
+
+    // Broadcast updated action list to all projection & remote clients in room
+    roomManager.broadcastToRoom(roomId, {
+      type: 'ACTIONS_UPDATED',
+      actions: updatedActions
+    });
+
+    res.json({ success: true, deletedId: id, actions: updatedActions });
+  } catch (e: any) {
+    console.error('[Server] Failed to delete action:', e);
+    res.status(500).json({ error: e.message || 'Internal Server Error' });
+  }
+});
+
 app.get('/api/assets/videos', (req, res) => {
   res.json(actionRegistry.getVideos());
 });

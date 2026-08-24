@@ -99,18 +99,6 @@
     "description": "Burst of glowing cyan particles swirling around the holographic core."
   },
   {
-    "id": "TEST_DYNAMIC_PEN",
-    "name": "Dynamic Smart Stylus Demo",
-    "category": "Objects",
-    "spokenText": "This action was created dynamically through the Action Creator.",
-    "video": "/assets/videos/pen_show.mp4",
-    "holdImage": "/assets/images/pen_final.png",
-    "audio": "/assets/audio/generated/delphini_92ddb2f5848ef5ac44168fb852c22306.wav",
-    "audioMode": "delphini-engine",
-    "description": "",
-    "createdAt": 1787583944501
-  },
-  {
     "id": "I_M_TESTING_IT",
     "name": "I'm Testing it",
     "category": "Special",

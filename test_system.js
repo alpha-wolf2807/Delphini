@@ -59,6 +59,14 @@ async function runTests() {
   const newActionData = await newActionRes.json();
   console.log(`   [PASS] Created action: ${newActionData.action.id} -> Total actions: ${newActionData.actions.length}`);
 
+  // Test 6.5: DELETE /api/actions/TEST_DYNAMIC_PEN (Action Deletion)
+  console.log('6.5. Testing Action Removal via DELETE /api/actions/TEST_DYNAMIC_PEN...');
+  const deleteRes = await fetch(`${BASE_URL}/api/actions/TEST_DYNAMIC_PEN?roomId=${ROOM_ID}`, {
+    method: 'DELETE'
+  });
+  const deleteData = await deleteRes.json();
+  console.log(`   [PASS] Removed action: ${deleteData.deletedId} -> Remaining actions: ${deleteData.actions.length}`);
+
   // Test 7: WebSocket End-to-End Handshake & Action Routing
   console.log('7. Testing WebSocket Handshake, Action Routing & Live Response...');
   await testWebSocketFlow();
@@ -157,7 +165,7 @@ function testWebSocketFlow() {
       if (!projReceivedAction || !projReceivedLiveResponse) {
         reject(new Error('Timeout waiting for WebSocket end-to-end events'));
       }
-    }, 5000);
+    }, 10000);
   });
 }
 

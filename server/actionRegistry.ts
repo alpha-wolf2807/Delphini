@@ -99,6 +99,14 @@ export class ActionRegistry {
     return actions;
   }
 
+  deleteAction(actionId: string): ActionItem[] {
+    const actions = this.getActions();
+    const filtered = actions.filter(a => a.id.toUpperCase() !== actionId.trim().toUpperCase());
+    fs.writeFileSync(this.actionsPath, JSON.stringify(filtered, null, 2), 'utf-8');
+    console.log(`[ActionRegistry] Action deleted: ${actionId}`);
+    return filtered;
+  }
+
   getVideos(): VideoAsset[] {
     try {
       if (fs.existsSync(this.videosPath)) {
