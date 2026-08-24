@@ -39,7 +39,7 @@ async function runTests() {
     body: JSON.stringify({ text: "Delphini is a modular holographic interface." })
   });
   const ttsData = await ttsRes.json();
-  console.log(`   [PASS] Synthesized Audio URL: ${ttsData.audioUrl} (Duration: ~${ttsData.durationEstimate}s)`);
+  console.log(`   [PASS] TTS Audio Signal: ${ttsData.audioUrl || 'Web Speech Fallback'} (Duration: ~${ttsData.durationEstimate}s)`);
 
   // Test 6: POST /api/actions (Action Creator)
   console.log('6. Testing Dynamic Action Creation via POST /api/actions...');

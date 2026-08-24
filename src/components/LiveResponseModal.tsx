@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { X, Send, Sparkles, Zap, MessageSquare } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { X, Send, Sparkles, Zap, MessageSquare, Mic, MicOff, Volume2 } from 'lucide-react';
+import { soundFX } from '../utils/soundEffects';
 
 interface LiveResponseModalProps {
   isOpen: boolean;
@@ -20,24 +21,75 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
   onSendLiveResponse
 }) => {
   const [text, setText] = useState('');
-  const [lastSentText, setLastSentText] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
 
   if (!isOpen) return null;
 
+  const toggleVoiceDictation = () => {
+    soundFX.playClick();
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+      return;
+    }
+
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Voice dictation is not supported in this browser. Try Chrome, Edge, or Safari.');
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event: any) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        setText(transcript);
+      };
+
+      recognition.onerror = (err: any) => {
+        console.warn('[SpeechDictation] Error:', err);
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (e) {
+      console.error('[SpeechDictation] Initialization failed:', e);
+      setIsListening(false);
+    }
+  };
+
   const handleSend = () => {
     if (!text.trim()) return;
+    soundFX.playTransmit();
     setIsSending(true);
     onSendLiveResponse(text.trim());
-    setLastSentText(text.trim());
     setTimeout(() => {
       setIsSending(false);
       setText('');
       onClose();
-    }, 600);
+    }, 500);
   };
 
   const handleSelectPreset = (preset: string) => {
+    soundFX.playClick();
     setText(preset);
   };
 
@@ -47,13 +99,16 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-delphini-border">
           <div className="flex items-center gap-2">
-            <Zap className="w-5 h-5 text-delphini-cyan" />
+            <Zap className="w-5 h-5 text-delphini-cyan animate-pulse" />
             <h2 className="text-xl font-bold text-slate-100 tracking-wide font-sans">
-              Live Delphini Response
+              Live Delphini Speech Response
             </h2>
           </div>
           <button
-            onClick={onClose}
+            onClick={() => {
+              soundFX.playClick();
+              onClose();
+            }}
             className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
           >
             <X className="w-5 h-5" />
@@ -63,7 +118,7 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
         {/* Modal Body */}
         <div className="mt-4 space-y-4">
           <p className="text-xs text-slate-400">
-            Type anything for Delphini to say during unscripted Q&A. The hologram will trigger its explaining animation and speak using the <strong className="text-delphini-cyan">unified Delphini female voice</strong>.
+            Speak into your microphone or type unscripted text for Delphini to say live. Delphini will trigger its explanation hologram and speak with the <strong className="text-delphini-cyan">unified female voice</strong>.
           </p>
 
           {/* Preset Quick-Replies */}
@@ -71,13 +126,13 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
             <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5 text-delphini-cyan" /> Quick Preset Responses (Click to insert):
             </label>
-            <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+            <div className="space-y-1.5 max-h-32 overflow-y-auto pr-1">
               {PRESET_ANSWERS.map((preset, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => handleSelectPreset(preset)}
-                  className="w-full text-left p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-delphini-cyan/50 text-xs text-slate-300 transition-colors line-clamp-2"
+                  className="w-full text-left p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-delphini-cyan/50 text-xs text-slate-300 transition-colors line-clamp-2"
                 >
                   "{preset}"
                 </button>
@@ -85,33 +140,64 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
             </div>
           </div>
 
-          {/* Text Input Area */}
+          {/* Text Input Area & Voice Dictation Trigger */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-delphini-cyan mb-1 flex items-center gap-1.5">
-              <MessageSquare className="w-3.5 h-3.5" />
-              What Delphini Should Say:
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-delphini-cyan flex items-center gap-1.5 font-mono">
+                <MessageSquare className="w-3.5 h-3.5" />
+                What Delphini Should Say:
+              </label>
+
+              {/* Dictation Button */}
+              <button
+                type="button"
+                onClick={toggleVoiceDictation}
+                className={`px-3 py-1 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+                  isListening
+                    ? 'bg-rose-950 border border-rose-500 text-rose-300 animate-pulse shadow-glow-sm'
+                    : 'bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-cyan-300'
+                }`}
+              >
+                {isListening ? (
+                  <>
+                    <MicOff className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Listening... (Click to Stop)</span>
+                  </>
+                ) : (
+                  <>
+                    <Mic className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Voice Dictation Mic</span>
+                  </>
+                )}
+              </button>
+            </div>
+
             <textarea
               rows={4}
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="e.g. Delphini is a modular holographic interface capable of explaining complex components..."
-              className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-delphini-cyan focus:ring-1 focus:ring-delphini-cyan text-sm resize-none font-sans"
+              className={`w-full px-4 py-3 bg-slate-900 border rounded-xl text-white focus:outline-none focus:border-delphini-cyan focus:ring-1 focus:ring-delphini-cyan text-sm resize-none font-sans transition-colors ${
+                isListening ? 'border-rose-500/80 bg-slate-900/90' : 'border-slate-700'
+              }`}
               autoFocus
             />
           </div>
 
           {/* Footer Controls */}
           <div className="pt-3 flex items-center justify-between border-t border-delphini-border">
-            <span className="text-xs text-slate-500 font-mono">
-              Voice: <span className="text-cyan-400">delphini-female</span>
+            <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
+              <Volume2 className="w-3.5 h-3.5 text-cyan-400" /> Neural Voice: <strong className="text-cyan-300">delphini-female</strong>
             </span>
 
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={onClose}
-                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 text-sm font-medium transition-colors"
+                onClick={() => {
+                  soundFX.playClick();
+                  onClose();
+                }}
+                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 text-xs font-mono transition-colors"
               >
                 Cancel
               </button>
@@ -119,10 +205,10 @@ export const LiveResponseModal: React.FC<LiveResponseModalProps> = ({
                 type="button"
                 disabled={!text.trim() || isSending}
                 onClick={handleSend}
-                className="px-6 py-2 rounded-xl bg-gradient-to-r from-delphini-cyan to-delphini-blue text-black font-bold text-sm hover:opacity-95 shadow-glow-cyan flex items-center gap-2 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-delphini-cyan to-delphini-blue text-black font-bold text-xs font-mono uppercase tracking-wider hover:opacity-95 shadow-glow-cyan flex items-center gap-2 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
-                {isSending ? 'Transmitting...' : 'Speak as Delphini'}
+                {isSending ? 'Transmitting Beam...' : 'Transmit Speech to Hologram'}
               </button>
             </div>
           </div>

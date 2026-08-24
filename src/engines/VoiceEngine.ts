@@ -158,13 +158,58 @@ export class VoiceEngine {
     if (audioUrlToPlay) {
       return this.playPreGeneratedAudio(audioUrlToPlay);
     } else {
-      // Fallback: Notify listeners of simulated speech duration without breaking presentation
-      console.warn('[VoiceEngine] Running audio-less speech timing fallback');
-      for (const l of this.listeners) l.onSpeechStart?.();
-      const words = text.trim().split(/\s+/).length;
-      const durationMs = Math.max(2000, (words / 2.5) * 1000);
-      await new Promise(r => setTimeout(r, durationMs));
-      for (const l of this.listeners) l.onSpeechEnd?.();
+      // Fallback to Native Browser Web Speech API (window.speechSynthesis)
+      return this.speakWithBrowserWebSpeech(text);
     }
+  }
+
+  private speakWithBrowserWebSpeech(text: string): Promise<void> {
+    return new Promise((resolve) => {
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+        console.warn('[VoiceEngine] Web Speech API not supported in browser context');
+        for (const l of this.listeners) l.onSpeechStart?.();
+        const words = text.trim().split(/\s+/).length;
+        setTimeout(() => {
+          for (const l of this.listeners) l.onSpeechEnd?.();
+          resolve();
+        }, Math.max(2000, (words / 2.5) * 1000));
+        return;
+      }
+
+      console.log(`[VoiceEngine] Using Web Speech API fallback for Delphini: "${text}"`);
+      window.speechSynthesis.cancel(); // Stop any pending speech
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+
+      // Select female voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(v => 
+        (v.lang.startsWith('en') && (v.name.includes('Aria') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Google US English') || v.name.toLowerCase().includes('female')))
+      ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+
+      if (preferredVoice) {
+        utterance.voice = preferredVoice;
+        console.log(`[VoiceEngine] Selected Web Speech voice: ${preferredVoice.name}`);
+      }
+
+      utterance.onstart = () => {
+        for (const l of this.listeners) l.onSpeechStart?.();
+      };
+
+      utterance.onend = () => {
+        for (const l of this.listeners) l.onSpeechEnd?.();
+        resolve();
+      };
+
+      utterance.onerror = (e) => {
+        console.warn('[VoiceEngine] Web Speech API utterance error:', e);
+        for (const l of this.listeners) l.onSpeechEnd?.();
+        resolve();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    });
   }
 }

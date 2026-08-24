@@ -112,10 +112,12 @@ app.post('/api/tts/speak', async (req, res) => {
     }
 
     const result = await voiceService.synthesize(text);
-    res.json(result);
+    res.json({ success: true, audioUrl: result.audioUrl, durationEstimate: result.durationEstimate });
   } catch (e: any) {
-    console.error('[Server] TTS synthesis failed:', e);
-    res.status(500).json({ error: e.message || 'TTS Synthesis failed' });
+    console.warn('[Server] Python TTS synthesis unavailable, returning Web Speech API fallback payload:', e.message);
+    const words = (req.body.text || '').trim().split(/\s+/).length;
+    const durationEstimate = Math.max(1.8, Math.ceil((words / 2.5) * 10) / 10);
+    res.json({ success: false, audioUrl: null, fallback: 'web-speech', durationEstimate });
   }
 });
 
@@ -238,6 +240,17 @@ wss.on('connection', (ws: WebSocket, req) => {
             actionId: message.actionId,
             timestamp: Date.now()
           }, ws);
+          break;
+        }
+
+        case 'CALIBRATION_UPDATE': {
+          if (!currentRoomId) return;
+          console.log(`[WS] Calibration live update received in room ${currentRoomId}`);
+          roomManager.broadcastToRoom(currentRoomId, {
+            type: 'CALIBRATION_UPDATED',
+            calibration: message.calibration,
+            timestamp: Date.now()
+          });
           break;
         }
 
