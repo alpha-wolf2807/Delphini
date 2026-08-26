@@ -180,19 +180,33 @@ export class VoiceEngine {
       window.speechSynthesis.cancel(); // Stop any pending speech
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
 
-      // Select female voice if available
-      const voices = window.speechSynthesis.getVoices();
-      const preferredVoice = voices.find(v => 
-        (v.lang.startsWith('en') && (v.name.includes('Aria') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.includes('Google US English') || v.name.toLowerCase().includes('female')))
-      ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+      // Function to select best female voice
+      const selectFemaleVoice = () => {
+        const voices = window.speechSynthesis.getVoices();
+        const femaleVoice = voices.find(v => 
+          (v.lang.startsWith('en') && (
+            v.name.includes('Aria') || 
+            v.name.includes('Zira') || 
+            v.name.includes('Jenny') || 
+            v.name.includes('Samantha') || 
+            v.name.includes('Google US English') || 
+            v.name.toLowerCase().includes('female') ||
+            v.name.toLowerCase().includes('woman')
+          ))
+        ) || voices.find(v => v.lang.startsWith('en') && !v.name.includes('David') && !v.name.includes('Mark') && !v.name.includes('George')) || voices[0];
 
-      if (preferredVoice) {
-        utterance.voice = preferredVoice;
-        console.log(`[VoiceEngine] Selected Web Speech voice: ${preferredVoice.name}`);
-      }
+        if (femaleVoice) {
+          utterance.voice = femaleVoice;
+          console.log(`[VoiceEngine] Selected Delphini Female Web Speech voice: ${femaleVoice.name}`);
+        }
+      };
+
+      selectFemaleVoice();
+
+      // Pitch modulation to guarantee feminine acoustic frequency (1.35x pitch)
+      utterance.pitch = 1.35;
+      utterance.rate = 0.95;
 
       utterance.onstart = () => {
         for (const l of this.listeners) l.onSpeechStart?.();

@@ -52,7 +52,7 @@ export interface CalibrationSettings {
   quadrantDistance?: number;
 }
 
-export type HologramMediaState = 'IDLE' | 'PLAYING_VIDEO' | 'HOLD_IMAGE' | 'TRANSITIONING' | 'BLACK_OUT';
+export type HologramMediaState = 'IDLE' | 'PLAYING_VIDEO' | 'HOLD_IMAGE' | 'TRANSITIONING' | 'BLACK_OUT' | 'AWAITING_ENTRY' | 'ENTRY_PLAYING';
 
 export interface HologramStatus {
   state: HologramMediaState;
@@ -61,7 +61,15 @@ export interface HologramStatus {
   holdImageUrl?: string;
   audioUrl?: string;
   isBlackScreen: boolean;
+  isLooping?: boolean;
+  audioDuration?: number;
   timestamp: number;
+}
+
+export interface EntryConfig {
+  videoUrl: string;
+  holdImageUrl: string;
+  autoPlayOnLoad?: boolean;
 }
 
 export interface WebSocketMessage {
@@ -76,6 +84,8 @@ export interface WebSocketMessage {
   holdImageUrl?: string;
   enabled?: boolean;
   calibration?: Partial<CalibrationSettings>;
+  entryConfig?: EntryConfig;
+  isLooping?: boolean;
   state?: HologramMediaState;
   timestamp?: number;
   clientTimestamp?: number;

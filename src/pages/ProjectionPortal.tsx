@@ -42,7 +42,7 @@ export const ProjectionPortal: React.FC = () => {
   // State
   const [actions, setActions] = useState<ActionItem[]>([]);
   const [hologramStatus, setHologramStatus] = useState<HologramStatus>({
-    state: 'IDLE',
+    state: 'AWAITING_ENTRY',
     holdImageUrl: '/assets/images/Fallback image.png',
     isBlackScreen: false,
     timestamp: Date.now()
@@ -71,6 +71,7 @@ export const ProjectionPortal: React.FC = () => {
     // 1. Fetch Actions & Calibration
     fetchActions();
     fetchCalibration();
+    mediaEngineRef.current.setAwaitingEntry();
 
     // 2. Setup ActionEngine status listener
     actionEngineRef.current.onStatusChange((status) => {
@@ -167,6 +168,16 @@ export const ProjectionPortal: React.FC = () => {
         }
         break;
 
+      case 'EXECUTE_ENTRY':
+        actionEngineRef.current.triggerEntry();
+        break;
+
+      case 'ENTRY_CONFIG_UPDATED':
+        if (msg.entryConfig) {
+          mediaEngineRef.current.setEntryConfig(msg.entryConfig);
+        }
+        break;
+
       case 'RESET_HOLOGRAM':
         actionEngineRef.current.reset();
         break;
@@ -220,6 +231,7 @@ export const ProjectionPortal: React.FC = () => {
           videoUrl={hologramStatus.videoUrl || null}
           holdImageUrl={hologramStatus.holdImageUrl || '/assets/images/delphini_idle.png'}
           isBlackScreen={hologramStatus.isBlackScreen}
+          isLooping={hologramStatus.isLooping}
           calibration={calibration}
           showCalibrationGrid={showGrid}
           onVideoEnd={() => mediaEngineRef.current.handleVideoEnded()}

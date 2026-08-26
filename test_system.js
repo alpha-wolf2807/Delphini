@@ -31,6 +31,20 @@ async function runTests() {
   const voiceConfig = await voiceRes.json();
   console.log(`   [PASS] Unified Voice Model: ${voiceConfig.model} (${voiceConfig.speaker})`);
 
+  // Test 4.5: GET & POST /api/entry (Delphini Entry Config)
+  console.log('4.5. Testing GET & POST /api/entry...');
+  const entryGetRes = await fetch(`${BASE_URL}/api/entry`);
+  const entryData = await entryGetRes.json();
+  console.log(`   [PASS] Default Entry Video: ${entryData.videoUrl}`);
+
+  const entryPostRes = await fetch(`${BASE_URL}/api/entry?roomId=${ROOM_ID}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ videoUrl: '/assets/videos/N--DELPHINI INTRODUCTION.mp4', holdImageUrl: '/assets/images/Fallback image.png' })
+  });
+  const updatedEntry = await entryPostRes.json();
+  console.log(`   [PASS] Saved Entry Config: ${updatedEntry.videoUrl}`);
+
   // Test 5: POST /api/tts/speak (Live TTS synthesis)
   console.log('5. Testing Live Voice Synthesis via POST /api/tts/speak...');
   const ttsRes = await fetch(`${BASE_URL}/api/tts/speak`, {

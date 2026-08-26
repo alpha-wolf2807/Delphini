@@ -10,7 +10,8 @@ import {
   CheckCircle,
   Database,
   Layers,
-  ArrowLeft
+  ArrowLeft,
+  Sparkles
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -20,6 +21,12 @@ export const AdminPortal: React.FC = () => {
   const [images, setImages] = useState<ImageAsset[]>([]);
   const [voiceConfig, setVoiceConfig] = useState<VoiceConfig | null>(null);
   const [calibration, setCalibration] = useState<CalibrationSettings | null>(null);
+  const [entryConfig, setEntryConfig] = useState<{ videoUrl: string; holdImageUrl: string; autoPlayOnLoad?: boolean }>({
+    videoUrl: '/assets/videos/N--DELPHINI INTRODUCTION.mp4',
+    holdImageUrl: '/assets/images/Fallback image.png',
+    autoPlayOnLoad: false
+  });
+  const [entrySaveMsg, setEntrySaveMsg] = useState('');
 
   const [testText, setTestText] = useState('Delphini holographic interface voice test.');
   const [isPlayingVoice, setIsPlayingVoice] = useState(false);
@@ -31,12 +38,13 @@ export const AdminPortal: React.FC = () => {
 
   const loadAllData = async () => {
     try {
-      const [aRes, vRes, iRes, voiceRes, calRes] = await Promise.all([
+      const [aRes, vRes, iRes, voiceRes, calRes, entryRes] = await Promise.all([
         fetch('/api/actions'),
         fetch('/api/assets/videos'),
         fetch('/api/assets/images'),
         fetch('/api/voice/config'),
-        fetch('/api/calibration')
+        fetch('/api/calibration'),
+        fetch('/api/entry')
       ]);
 
       if (aRes.ok) setActions(await aRes.json());
@@ -44,8 +52,26 @@ export const AdminPortal: React.FC = () => {
       if (iRes.ok) setImages(await iRes.json());
       if (voiceRes.ok) setVoiceConfig(await voiceRes.json());
       if (calRes.ok) setCalibration(await calRes.json());
+      if (entryRes.ok) setEntryConfig(await entryRes.json());
     } catch (e) {
       console.error('Failed to load admin data:', e);
+    }
+  };
+
+  const handleSaveEntryConfig = async () => {
+    try {
+      setEntrySaveMsg('Saving...');
+      const res = await fetch('/api/entry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entryConfig)
+      });
+      if (res.ok) {
+        setEntrySaveMsg('Entry settings saved successfully!');
+        setTimeout(() => setEntrySaveMsg(''), 3000);
+      }
+    } catch (e: any) {
+      setEntrySaveMsg(`Save failed: ${e.message}`);
     }
   };
 
@@ -155,6 +181,60 @@ export const AdminPortal: React.FC = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* 1.5. Delphini Grand Entry Settings Card */}
+        <section className="glass-panel-glow rounded-2xl p-6 border border-cyan-400/40 bg-slate-900/80">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-delphini-cyan" />
+              <h2 className="text-base font-bold font-mono text-cyan-300">
+                Delphini Grand Entry Video Configuration
+              </h2>
+            </div>
+            {entrySaveMsg && <span className="text-xs font-mono text-emerald-400">{entrySaveMsg}</span>}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+            <div>
+              <label className="block text-slate-400 mb-1">Select Entry Video Asset:</label>
+              <select
+                value={entryConfig.videoUrl}
+                onChange={(e) => setEntryConfig(prev => ({ ...prev, videoUrl: e.target.value }))}
+                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-cyan-300 focus:outline-none focus:border-cyan-400"
+              >
+                {videos.map(v => (
+                  <option key={v.id} value={v.file}>
+                    {v.name} ({v.file.split('/').pop()})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-slate-400 mb-1">Select Post-Entry Hold Image Asset:</label>
+              <select
+                value={entryConfig.holdImageUrl}
+                onChange={(e) => setEntryConfig(prev => ({ ...prev, holdImageUrl: e.target.value }))}
+                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-cyan-300 focus:outline-none focus:border-cyan-400"
+              >
+                {images.map(img => (
+                  <option key={img.id} value={img.file}>
+                    {img.name} ({img.file.split('/').pop()})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center justify-end">
+            <button
+              onClick={handleSaveEntryConfig}
+              className="px-5 py-2 rounded-xl bg-delphini-cyan text-black font-bold font-mono text-xs shadow-glow-sm hover:opacity-90 transition-opacity"
+            >
+              Save Entry Configuration
+            </button>
           </div>
         </section>
 

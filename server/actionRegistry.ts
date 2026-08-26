@@ -45,12 +45,19 @@ export interface CalibrationSettings {
   quadrantDistance?: number;
 }
 
+export interface EntryConfig {
+  videoUrl: string;
+  holdImageUrl: string;
+  autoPlayOnLoad?: boolean;
+}
+
 export class ActionRegistry {
   private configDir: string;
   private actionsPath: string;
   private videosPath: string;
   private imagesPath: string;
   private calibrationPath: string;
+  private entryPath: string;
 
   constructor() {
     this.configDir = path.join(__dirname, '..', 'config');
@@ -58,6 +65,7 @@ export class ActionRegistry {
     this.videosPath = path.join(this.configDir, 'videos.json');
     this.imagesPath = path.join(this.configDir, 'images.json');
     this.calibrationPath = path.join(this.configDir, 'calibration.json');
+    this.entryPath = path.join(this.configDir, 'entry.json');
   }
 
   getActions(): ActionItem[] {
@@ -153,6 +161,29 @@ export class ActionRegistry {
     const updated = { ...current, ...settings };
     fs.writeFileSync(this.calibrationPath, JSON.stringify(updated, null, 2), 'utf-8');
     console.log('[ActionRegistry] Calibration settings updated');
+    return updated;
+  }
+
+  getEntryConfig(): EntryConfig {
+    try {
+      if (fs.existsSync(this.entryPath)) {
+        return JSON.parse(fs.readFileSync(this.entryPath, 'utf-8'));
+      }
+    } catch (e) {
+      console.error('[ActionRegistry] Error reading entry.json:', e);
+    }
+    return {
+      videoUrl: '/assets/videos/N--DELPHINI INTRODUCTION.mp4',
+      holdImageUrl: '/assets/images/Fallback image.png',
+      autoPlayOnLoad: false
+    };
+  }
+
+  saveEntryConfig(config: Partial<EntryConfig>): EntryConfig {
+    const current = this.getEntryConfig();
+    const updated = { ...current, ...config };
+    fs.writeFileSync(this.entryPath, JSON.stringify(updated, null, 2), 'utf-8');
+    console.log('[ActionRegistry] Entry config updated');
     return updated;
   }
 }

@@ -119,6 +119,20 @@ app.post('/api/calibration', (req, res) => {
   res.json(updated);
 });
 
+app.get('/api/entry', (req, res) => {
+  res.json(actionRegistry.getEntryConfig());
+});
+
+app.post('/api/entry', (req, res) => {
+  const updated = actionRegistry.saveEntryConfig(req.body);
+  const roomId = req.query.roomId as string || 'DEL-4821';
+  roomManager.broadcastToRoom(roomId, {
+    type: 'ENTRY_CONFIG_UPDATED',
+    entryConfig: updated
+  });
+  res.json(updated);
+});
+
 app.get('/api/voice/config', (req, res) => {
   res.json(voiceService.getConfig());
 });
@@ -253,6 +267,27 @@ wss.on('connection', (ws: WebSocket, req) => {
           roomManager.sendToProjection(currentRoomId, {
             type: 'SET_BLACK_SCREEN',
             enabled: message.enabled,
+            timestamp: Date.now()
+          });
+          break;
+        }
+
+        case 'TRIGGER_ENTRY': {
+          if (!currentRoomId) return;
+          console.log(`[WS] Trigger entry command in room ${currentRoomId}`);
+          roomManager.sendToProjection(currentRoomId, {
+            type: 'EXECUTE_ENTRY',
+            timestamp: Date.now()
+          });
+          break;
+        }
+
+        case 'ENTRY_CONFIG_UPDATE': {
+          if (!currentRoomId) return;
+          console.log(`[WS] Entry config updated in room ${currentRoomId}`);
+          roomManager.broadcastToRoom(currentRoomId, {
+            type: 'ENTRY_CONFIG_UPDATED',
+            entryConfig: message.entryConfig,
             timestamp: Date.now()
           });
           break;

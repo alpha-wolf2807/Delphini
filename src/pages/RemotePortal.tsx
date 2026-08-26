@@ -163,6 +163,17 @@ export const RemotePortal: React.FC = () => {
     });
   };
 
+  const triggerEntry = () => {
+    soundFX.playTrigger();
+    setLastTriggeredId('DELPHINI_ENTRY');
+    setLastTriggerTime(Date.now());
+
+    wsClientRef.current?.send({
+      type: 'TRIGGER_ENTRY',
+      timestamp: Date.now()
+    });
+  };
+
   const triggerReset = () => {
     soundFX.playEmergency();
     setLastTriggeredId('RESET');
@@ -378,6 +389,36 @@ export const RemotePortal: React.FC = () => {
 
       {/* Main Control Deck */}
       <main className="max-w-5xl mx-auto space-y-6">
+        {/* Featured Grand Entry Card */}
+        <div className="p-4 md:p-5 rounded-2xl glass-panel-glow border-2 border-cyan-400/60 bg-gradient-to-r from-cyan-950 via-slate-950 to-cyan-950/70 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="p-3.5 rounded-2xl bg-cyan-400 text-black font-black shadow-glow-cyan">
+              <Sparkles className="w-7 h-7 animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-black tracking-widest text-cyan-300 font-mono">
+                  DELPHINI GRAND ENTRY
+                </h2>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-400 text-black font-bold uppercase">
+                  Featured
+                </span>
+              </div>
+              <p className="text-xs text-slate-300 mt-0.5">
+                Play Delphini's entrance video & smoothly settle into standard hold posture.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={triggerEntry}
+            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-delphini-cyan to-delphini-blue hover:opacity-95 text-black font-bold font-mono text-xs uppercase tracking-wider shadow-glow-cyan flex items-center justify-center gap-2 transition-all hover:scale-105 shrink-0"
+          >
+            <Play className="w-4 h-4 fill-current" />
+            Trigger Delphini Entry
+          </button>
+        </div>
+
         {/* Quick Action Trigger Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {/* Live Response Modal Trigger */}
