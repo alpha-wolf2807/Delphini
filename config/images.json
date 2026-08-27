@@ -6,6 +6,132 @@
     "category": "Character"
   },
   {
+    "id": "Kidding_fallback",
+    "name": "Kidding fallback Image",
+    "file": "/assets/images/Kidding fallback.png",
+    "category": "Character"
+  },
+  {
+    "id": "Initialization fallback",
+    "name": "Initialization fallback Image",
+    "file": "/assets/images/Initialization fallback.png",
+    "category": "Character"
+  },
+  {
+    "id": "Introduction fallback",
+    "name": "Introduction fallback Image",
+    "file": "/assets/images/Introduction fallback.png",
+    "category": "Character"
+  },
+  {
+    "id": "What do",
+    "name": "What do fallback Image",
+    "file": "/assets/images/What do.png",
+    "category": "Character"
+  },
+  {
+    "id": "Walk around",
+    "name": "Walk around fallback Image",
+    "file": "/assets/images/Walk around.png",
+    "category": "Character"
+  },
+  {
+    "id": "Surfing web",
+    "name": "Surfing web fallback Image",
+    "file": "/assets/images/Surfing web.png",
+    "category": "Character"
+  },
+  {
+    "id": "Pen show",
+    "name": "Pen show fallback Image",
+    "file": "/assets/images/Pen show.png",
+    "category": "Character"
+  },
+  {
+    "id": "Pen explode",
+    "name": "Pen explode fallback Image",
+    "file": "/assets/images/Pen explode.png",
+    "category": "Character"
+  },
+  {
+    "id": "Nueron",
+    "name": "Nueron fallback Image",
+    "file": "/assets/images/Nueron.png",
+    "category": "Character"
+  },
+  {
+    "id": "Heart joke",
+    "name": "Heart joke fallback Image",
+    "file": "/assets/images/Heart joke.png",
+    "category": "Character"
+  },
+  {
+    "id": "Science mode",
+    "name": "Science mode fallback Image",
+    "file": "/assets/images/Science mode.png",
+    "category": "Character"
+  },
+  {
+    "id": "Heart",
+    "name": "Heart fallback Image",
+    "file": "/assets/images/Heart.png",
+    "category": "Character"
+  },
+  {
+    "id": "Book",
+    "name": "Book fallback Image",
+    "file": "/assets/images/Book.png",
+    "category": "Character"
+  },
+  {
+    "id": "Clock",
+    "name": "Clock fallback Image",
+    "file": "/assets/images/Clock.png",
+    "category": "Character"
+  },
+  {
+    "id": "Compass",
+    "name": "Compass fallback Image",
+    "file": "/assets/images/Compass.png",
+    "category": "Character"
+  },
+  {
+    "id": "Globe",
+    "name": "Globe fallback Image",
+    "file": "/assets/images/Globe.png",
+    "category": "Character"
+  },
+  {
+    "id": "Map",
+    "name": "Map fallback Image",
+    "file": "/assets/images/Map.png",
+    "category": "Character"
+  },
+  {
+    "id": "Dracula",
+    "name": "Dracula fallback Image",
+    "file": "/assets/images/Dracula.png",
+    "category": "Character"
+  },
+  {
+    "id": "Why built",
+    "name": "Why built fallback Image",
+    "file": "/assets/images/Why built.png",
+    "category": "Character"
+  },
+  {
+    "id": "Anything else",
+    "name": "Anything else fallback Image",
+    "file": "/assets/images/Anything else.png",
+    "category": "Character"
+  },
+  {
+    "id": "Right here",
+    "name": "Right here fallback Image",
+    "file": "/assets/images/Right here.png",
+    "category": "Character"
+  },
+  {
     "id": "delphini_idle",
     "name": "Delphini Idle Presence",
     "file": "/assets/images/Fallback image.png",

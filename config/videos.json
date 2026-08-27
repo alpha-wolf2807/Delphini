@@ -24,12 +24,6 @@
     "category": "Humor"
   },
   {
-    "id": "N--DELPHINI_EMOTIONAL_JUDGE_MOMENT",
-    "name": "Emotional Judge Moment",
-    "file": "/assets/videos/N--DELPHINI EMOTIONAL JUDGE MOMENT.mp4",
-    "category": "Reactions"
-  },
-  {
     "id": "N--DELPHINI_EXIT",
     "name": "Delphini Exit",
     "file": "/assets/videos/N--DELPHINI EXIT.mp4",
@@ -114,12 +108,6 @@
     "category": "Actions"
   },
   {
-    "id": "N--DELPHINI_TEASING_AARAV",
-    "name": "Teasing Aarav",
-    "file": "/assets/videos/N--DELPHINI TEASING AARAV.mp4",
-    "category": "Humor"
-  },
-  {
     "id": "N--DELPHINI_WALK_AROUND",
     "name": "Delphini Walk Around",
     "file": "/assets/videos/N--DELPHINI WALK AROUND.mp4",
@@ -156,12 +144,6 @@
     "category": "Conversations"
   },
   {
-    "id": "BHARGAVI",
-    "name": "Bhargavi",
-    "file": "/assets/videos/BHARGAVI.mp4",
-    "category": "Humor"
-  },
-  {
     "id": "BOOK",
     "name": "Book",
     "file": "/assets/videos/N--BOOK.mp4",
@@ -195,6 +177,36 @@
     "id": "INITIALIZATION FAILED",
     "name": "Initialization Failed",
     "file": "/assets/videos/N--INITIALIZATION FAILED.mp4",
+    "category": "Error"
+  },
+  {
+    "id": "BUILDING",
+    "name": "Initialization Failed",
+    "file": "/assets/videos/N--BUILDING.mp4",
+    "category": "Error"
+  },
+  {
+    "id": "DELPHINI THINK",
+    "name": "Delphini Thinking",
+    "file": "/assets/videos/N--DELPHINI THINK.mp4",
+    "category": "Error"
+  },
+  {
+    "id": "LEMON JUICE",
+    "name": "Lemon Juice",
+    "file": "/assets/videos/N--LEMON JUICE.mp4",
+    "category": "Error"
+  },
+  {
+    "id": "PUSHUP",
+    "name": "Pushup",
+    "file": "/assets/videos/N--PUSHUP.mp4",
+    "category": "Error"
+  },
+  {
+    "id": "SIGN LANGUAGE",
+    "name": "Sign Language",
+    "file": "/assets/videos/N--SIGN LANGUAGE.mp4",
     "category": "Error"
   },
   {

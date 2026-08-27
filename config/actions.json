@@ -5,7 +5,7 @@
     "category": "Error",
     "spokenText": "",
     "video": "/assets/videos/N--INITIALIZATION FAILED.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Initialization fallback.png",
     "audioMode": "native-video",
     "description": "Initialization Failed"
   },
@@ -15,29 +15,9 @@
     "category": "Humor",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI SAYS KIDDING.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Kidding fallback.png",
     "audioMode": "native-video",
     "description": "Delphini laughs and says just kidding."
-  },
-  {
-    "id": "TEASING_AARAV",
-    "name": "Teasing Aarav",
-    "category": "Humor",
-    "spokenText": "",
-    "video": "/assets/videos/N--DELPHINI TEASING AARAV.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
-    "audioMode": "native-video",
-    "description": "Delphini playfully teases creator."
-  },
-  {
-    "id": "BHARGAVI",
-    "name": "Bhargavi",
-    "category": "Humor",
-    "spokenText": "",
-    "video": "/assets/videos/N--BHARGAVI.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
-    "audioMode": "native-video",
-    "description": "Bhargavi interaction"
   },
   {
     "id": "DELPHINI_INTRO",
@@ -45,7 +25,7 @@
     "category": "Greetings",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI INTRODUCTION.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Introduction fallback.png",
     "audioMode": "native-video",
     "description": "Delphini introduces herself and the holographic platform."
   },
@@ -55,7 +35,7 @@
     "category": "Actions",
     "spokenText": "",
     "video": "/assets/videos/N--WHAT CAN DO.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/What do.png",
     "audioMode": "native-video",
     "description": "Delphini says what she can do."
   },
@@ -65,7 +45,7 @@
     "category": "Actions",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI WALK AROUND.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Walk around.png",
     "audioMode": "native-video",
     "description": "Delphini walks around the stage."
   },
@@ -75,7 +55,7 @@
     "category": "Actions",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI SURFING WEB.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Surfing web.png",
     "audioMode": "native-video",
     "description": "Delphini searches and processes live data."
   },
@@ -85,7 +65,7 @@
     "category": "Objects",
     "spokenText": "",
     "video": "/assets/videos/N--PEN SHOW.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Pen show.png",
     "audioMode": "native-video",
     "description": "3D Smart Stylus materializes in mid-air."
   },
@@ -95,7 +75,7 @@
     "category": "Objects",
     "spokenText": "",
     "video": "/assets/videos/N--PEN DISASSEMBLE.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Pen explode.png",
     "audioMode": "native-video",
     "description": "Stylus disassembles in 3D."
   },
@@ -115,7 +95,7 @@
     "category": "Science",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI NUERON TEACH.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Nueron.png",
     "audioMode": "native-video",
     "description": "Delphini presents neural architecture visualization."
   },
@@ -125,7 +105,7 @@
     "category": "Humor",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI HEART JOKE.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Heart joke.png",
     "audioMode": "native-video",
     "description": "Delphini delivers a witty heart joke."
   },
@@ -135,7 +115,7 @@
     "category": "Science",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI SCIENCE MODE.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Science mode.png",
     "audioMode": "native-video",
     "description": "Delphini switches to analytical mode."
   },
@@ -145,7 +125,7 @@
     "category": "Visuals",
     "spokenText": "",
     "video": "/assets/videos/N--HEART.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Heart.png",
     "audioMode": "native-video",
     "description": "Glowing floating 3D heart."
   },
@@ -155,7 +135,7 @@
     "category": "Visuals",
     "spokenText": "",
     "video": "/assets/videos/N--BOOK.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Book.png",
     "audioMode": "native-video",
     "description": "Book"
   },
@@ -165,7 +145,7 @@
     "category": "Visuals",
     "spokenText": "",
     "video": "/assets/videos/N--CLOCK.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Clock.png",
     "audioMode": "native-video",
     "description": "Clock"
   },
@@ -175,7 +155,7 @@
     "category": "Visuals",
     "spokenText": "",
     "video": "/assets/videos/N--COMPASS.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Compass.png",
     "audioMode": "native-video",
     "description": "Compass"
   },
@@ -185,7 +165,7 @@
     "category": "Visuals",
     "spokenText": "",
     "video": "/assets/videos/N--GLOBE.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Globe.png",
     "audioMode": "native-video",
     "description": "Globe"
   },
@@ -195,9 +175,49 @@
     "category": "Visuals",
     "spokenText": "",
     "video": "/assets/videos/N--MAP.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Map.png",
     "audioMode": "native-video",
     "description": "Map."
+  },
+  {
+    "id": "BUILDING",
+    "name": "Building",
+    "category": "Visuals",
+    "spokenText": "",
+    "video": "/assets/videos/N--BUILDING.mp4",
+    "holdImage": "/assets/images/Building.png",
+    "audioMode": "native-video",
+    "description": "Building."
+  },
+  {
+    "id": "LEMON JUICE",
+    "name": "Lemon Juice",
+    "category": "Visuals",
+    "spokenText": "",
+    "video": "/assets/videos/N--LEMON JUICE.mp4",
+    "holdImage": "/assets/images/Fallback image.png",
+    "audioMode": "native-video",
+    "description": "Lemon juice."
+  },
+  {
+    "id": "PUSHUP",
+    "name": "Pushup",
+    "category": "Visuals",
+    "spokenText": "",
+    "video": "/assets/videos/N--PUSHUP.mp4",
+    "holdImage": "/assets/images/Fallback image.png",
+    "audioMode": "native-video",
+    "description": "Pushup."
+  },
+  {
+    "id": "SIGN LANGUAGE",
+    "name": "Sign Language",
+    "category": "Visuals",
+    "spokenText": "",
+    "video": "/assets/videos/N--SIGN LANGUAGE.mp4",
+    "holdImage": "/assets/images/Fallback image.png",
+    "audioMode": "native-video",
+    "description": "Sign Language."
   },
   {
     "id": "CHITTI",
@@ -205,7 +225,7 @@
     "category": "Visuals",
     "spokenText": "",
     "video": "/assets/videos/N--CHITTI.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Clock.png",
     "audioMode": "native-video",
     "description": "Chitti."
   },
@@ -215,7 +235,7 @@
     "category": "Humor",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI DRACULA JOKE.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Dracula.png",
     "audioMode": "native-video",
     "description": "Delphini tells a Dracula joke."
   },
@@ -225,19 +245,9 @@
     "category": "Story",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI ABT WHY WE BUILT IT.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Why built.png",
     "audioMode": "native-video",
     "description": "Delphini explains the vision and backstory."
-  },
-  {
-    "id": "EMOTIONAL_JUDGE",
-    "name": "Emotional Judge Moment",
-    "category": "Reactions",
-    "spokenText": "",
-    "video": "/assets/videos/N--DELPHINI EMOTIONAL JUDGE MOMENT.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
-    "audioMode": "native-video",
-    "description": "Delphini gives an emotional judge reaction."
   },
   {
     "id": "ANYTHING_ELSE",
@@ -245,7 +255,7 @@
     "category": "Conversations",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI ANYTHING ELSE.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Anything else.png",
     "audioMode": "native-video",
     "description": "Delphini asks if there are more questions."
   },
@@ -255,7 +265,7 @@
     "category": "Conversations",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI IM RIGHT HERE.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Right here.png",
     "audioMode": "native-video",
     "description": "Delphini reassures the audience."
   },
@@ -265,7 +275,7 @@
     "category": "Conversations",
     "spokenText": "",
     "video": "/assets/videos/N--DELPHINI EXIT.mp4",
-    "holdImage": "/assets/images/Fallback image.png",
+    "holdImage": "/assets/images/Initialization fallback.png",
     "audioMode": "native-video",
     "description": "Delphini exits the stage."
   },
@@ -298,6 +308,16 @@
     "holdImage": "/assets/images/Fallback image.png",
     "audioMode": "native-video",
     "description": "Delphini rolls her eyes playfully."
+  },
+  {
+    "id": "DELPHINI THINK",
+    "name": "Delphini Thinking",
+    "category": "Visuals",
+    "spokenText": "",
+    "video": "/assets/videos/N--DELPHINI THINK.mp4",
+    "holdImage": "/assets/images/Fallback image.png",
+    "audioMode": "native-video",
+    "description": "Delphini Thinking."
   },
   {
     "id": "CURIOUS_EXPRESSION",
