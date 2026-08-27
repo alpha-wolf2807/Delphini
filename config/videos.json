@@ -154,5 +154,53 @@
     "name": "Delphini Talking & Explaining",
     "file": "/assets/videos/delphini_explain.mp4",
     "category": "Conversations"
+  },
+  {
+    "id": "BHARGAVI",
+    "name": "Bhargavi",
+    "file": "/assets/videos/BHARGAVI.mp4",
+    "category": "Humor"
+  },
+  {
+    "id": "BOOK",
+    "name": "Book",
+    "file": "/assets/videos/N--BOOK.mp4",
+    "category": "Visuals"
+  },
+  {
+    "id": "CLOCK",
+    "name": "Clock",
+    "file": "/assets/videos/N--CLOCK.mp4",
+    "category": "Visuals"
+  },
+  {
+    "id": "COMPASS",
+    "name": "Compass",
+    "file": "/assets/videos/N--COMPASS.mp4",
+    "category": "Visuals"
+  },
+  {
+    "id": "GLOBE",
+    "name": "Globe",
+    "file": "/assets/videos/N--GLOBE.mp4",
+    "category": "Visuals"
+  },
+  {
+    "id": "MAP",
+    "name": "Map",
+    "file": "/assets/videos/N--MAP.mp4",
+    "category": "Visuals"
+  },
+  {
+    "id": "INITIALIZATION FAILED",
+    "name": "Initialization Failed",
+    "file": "/assets/videos/N--INITIALIZATION FAILED.mp4",
+    "category": "Error"
+  },
+  {
+    "id": "CHITTI",
+    "name": "Chitti",
+    "file": "/assets/videos/N--CHITTI.mp4",
+    "category": "Actions"
   }
 ]
